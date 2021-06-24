@@ -9,7 +9,7 @@ describe SaveFetchedMovie::EntryPoint do
 
   context 'when title is string' do
     it 'prints "Hello Foo"' do
-      expect(subject.class).to eq(HTTParty::Response )
+      expect(subject.class).to eq(HTTParty::Response)
     end
   end
 

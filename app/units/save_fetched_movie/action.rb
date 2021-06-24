@@ -18,5 +18,6 @@ module SaveFetchedMovie
     def download_movie_data
       OmdbApi::FetchMovieData.new(title: inputs[:title]).call
     end
+
   end
 end
