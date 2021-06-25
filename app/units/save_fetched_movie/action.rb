@@ -8,14 +8,18 @@ module SaveFetchedMovie
     end
 
     def call
-      download_movie_data
+      save_fetched_movie
     end
 
     private
 
     attr_reader :inputs
 
-    def download_movie_data
+    def save_fetched_movie
+      Adapters::Movies::MovieAdapter.new(download_raw_movie_data).new_movie.save
+    end
+
+    def download_raw_movie_data
       OmdbApi::FetchMovieData.new(title: inputs[:title]).call
     end
 

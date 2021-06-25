@@ -8,8 +8,8 @@ describe SaveFetchedMovie::EntryPoint do
   let(:params) { { title: 'Star Wars' } }
 
   context 'when title is string' do
-    it 'prints "Hello Foo"' do
-      expect(subject.class).to eq(HTTParty::Response)
+    it 'gets response' do
+      expect { subject }.to change(Movie, :count).by(1)
     end
   end
 
