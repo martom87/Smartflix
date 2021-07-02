@@ -13,6 +13,14 @@ describe SaveFetchedMovie::EntryPoint do
     end
   end
 
+  context 'when title is string but movie cannot be found' do
+    let(:params) { { title: '11133' } }
+
+    it 'prints error message' do
+      expect(subject).to eq("Movie not found! movie: #{params[:title]} cannot be saved")
+    end
+  end
+
   context 'when title is invalid' do
     let(:params) { { title: 1 } }
 
