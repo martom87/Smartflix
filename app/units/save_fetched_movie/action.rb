@@ -17,6 +17,8 @@ module SaveFetchedMovie
 
     def save_fetched_movie
       Adapters::Movies::MovieAdapter.new(download_raw_movie_data).new_movie.save
+    rescue StandardError
+      "#{download_raw_movie_data['Error']} movie: #{inputs[:title]} cannot be saved"
     end
 
     def download_raw_movie_data

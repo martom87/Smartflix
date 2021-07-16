@@ -9,7 +9,20 @@ describe SaveFetchedMovie::EntryPoint do
 
   context 'when title is string' do
     it 'gets response' do
-      expect { subject }.to change(Movie, :count).by(1)
+      VCR.use_cassette('correct_movie_example', match_requests_on: %i[host method body]) do
+        expect { subject }.to change(Movie, :count).by(1)
+      end
+    end
+  end
+
+  context 'when title is string but movie cannot be found' do
+    let(:params) { { title: 'film_that_not_exist' } }
+
+    it 'prints error message' do
+      VCR.use_cassette('movie_cannot_be_found_example', match_requests_on: %i[host method body]) do
+        expect(subject).to eq("Movie not found! movie: #{params[:title]} cannot be saved")
+        expect { subject }.to change(Movie, :count).by(0)
+      end
     end
   end
 

@@ -7,7 +7,6 @@ class CreateMovieWorker
 
   def perform
     Movie.create(title: 'Star Wars')
-    puts 'movie was created'
   end
 
 end
