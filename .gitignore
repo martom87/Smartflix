@@ -30,5 +30,5 @@
 
 # Ignore IntelliJ files
 .idea/
-
+coverage
 votes

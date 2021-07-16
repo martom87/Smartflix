@@ -27,6 +27,7 @@ group :development, :test do
   gem 'rubocop', require: false
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec'
+  gem 'simplecov', require: false
   gem 'vcr'
   gem 'webmock'
 end
