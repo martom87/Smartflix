@@ -2,10 +2,8 @@
 
 class MoviesController < ApplicationController
 
-  def show    
-    SaveFetchedMovie::EntryPoint.call(params: {title: params[:title]})
-    
-    render :json => '{foo: }'.to_json
+  def show
+    render json: "{ message: #{SaveFetchedMovie::EntryPoint.call(params: { title: params[:title] })} rspe}".to_json
   end
 
 end
