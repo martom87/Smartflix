@@ -5,8 +5,8 @@ class CreateMovieWorker
   include Sidekiq::Worker
   sidekiq_options retry: false, queue: 'movie'
 
-  def perform
-    Movie.create(title: 'Star Wars')
+  def perform(params)
+    SaveFetchedMovie::EntryPoint.call(params: { title: params[:title] })
   end
 
 end

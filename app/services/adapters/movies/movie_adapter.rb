@@ -8,8 +8,8 @@ module Adapters
         @raw_movie_data = raw_movie_data
       end
 
-      def new_movie
-        Movie.new(movie_data)
+      def movie_attributes
+        movie_data
       end
 
       attr_reader :raw_movie_data

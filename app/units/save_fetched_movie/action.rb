@@ -13,16 +13,20 @@ module SaveFetchedMovie
 
     private
 
-    attr_reader :inputs
+    attr_reader :inputs, :movie
 
     def save_fetched_movie
-      Adapters::Movies::MovieAdapter.new(download_raw_movie_data).new_movie.save
+      Movie.create(movie_attributes)
       "Movie #{inputs[:title]} was saved"
     rescue StandardError
-      "#{download_raw_movie_data['Error']} movie: #{inputs[:title]} cannot be saved"
+      "#{movie_data['Error']} movie: #{inputs[:title]} cannot be saved"
     end
 
-    def download_raw_movie_data
+    def movie_attributes
+      Adapters::Movies::MovieAdapter.new(movie_data).movie_attributes
+    end
+
+    def movie_data
       OmdbApi::FetchMovieData.new(title: inputs[:title]).call
     end
 
