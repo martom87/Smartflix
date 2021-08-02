@@ -20,9 +20,14 @@ describe SaveFetchedMovie::EntryPoint do
 
     it 'prints error message' do
       VCR.use_cassette('movie_cannot_be_found_example', match_requests_on: %i[host method body]) do
-        expect(subject).to eq("Movie not found! movie: #{params[:title]} cannot be saved")
         expect { subject }.to change(Movie, :count).by(0)
       end
+    end
+
+    it 'logs a warning' do
+      travel_to Time.utc(2021, 8, 2, 11, 44)
+      expect(Rails.logger).to receive('warn').with("2021-08-02 11:44:00 UTC: #{params[:title]} movie not found!")
+      subject
     end
   end
 

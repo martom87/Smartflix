@@ -17,9 +17,8 @@ module SaveFetchedMovie
 
     def save_fetched_movie
       Movie.create(movie_attributes)
-      "Movie #{inputs[:title]} was saved"
     rescue StandardError
-      "#{movie_data['Error']} movie: #{inputs[:title]} cannot be saved"
+      Rails.logger.warn("#{Time.current}: #{inputs[:title]} movie not found!")
     end
 
     def movie_attributes
