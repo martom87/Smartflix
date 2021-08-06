@@ -125,6 +125,9 @@ GEM
     erubi (1.10.0)
     factory_bot (6.1.0)
       activesupport (>= 5.0.0)
+    factory_bot_rails (6.1.0)
+      factory_bot (~> 6.1.0)
+      railties (>= 5.0.0)
     ffi (1.15.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
@@ -316,6 +319,7 @@ DEPENDENCIES
   database_cleaner-active_record
   dry-validation (~> 1.6)
   factory_bot
+  factory_bot_rails
   faker!
   httparty
   jbuilder (~> 2.7)
