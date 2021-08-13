@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe UpdateMovieWorker do
+RSpec.describe UpdateMoviesWorker do
   describe '#perform' do
     subject { described_class.new.perform }
 
