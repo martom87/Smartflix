@@ -16,6 +16,7 @@ gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.3', '>= 6.1.3.1'
 gem 'sass-rails', '>= 6'
 gem 'sidekiq', '~>6.0.0'
+gem 'sidekiq-scheduler'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
 
