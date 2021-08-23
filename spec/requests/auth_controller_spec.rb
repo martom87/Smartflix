@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Sing in', type: :request do
+RSpec.describe 'Auth Controller', type: :request do
   describe 'GET /login' do
     let!(:user) { User.create(id: 'Stive') }
 
