@@ -309,6 +309,8 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.0.0)
     vcr (6.0.0)
+    warden (1.2.9)
+      rack (>= 2.0.9)
     web-console (4.1.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -359,6 +361,7 @@ DEPENDENCIES
   turbolinks (~> 5)
   tzinfo-data
   vcr
+  warden
   web-console (>= 4.1.0)
   webmock
   webpacker (~> 5.0)
