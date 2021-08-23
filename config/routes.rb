@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   mount Sidekiq::Web => '/sidekiq'
 
   resources :movies, only: %i[show], param: :title
+  post 'login' => 'auth#login'
 end
