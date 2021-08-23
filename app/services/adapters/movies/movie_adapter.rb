@@ -2,14 +2,14 @@
 
 module Adapters
   module Movies
-    class MovieAdapter
+    class MovieAdapter < Movie
 
       def initialize(raw_movie_data)
         @raw_movie_data = raw_movie_data
       end
 
-      def movie_attributes
-        movie_data
+      def new_movie
+        Movie.new(movie_data)
       end
 
       attr_reader :raw_movie_data

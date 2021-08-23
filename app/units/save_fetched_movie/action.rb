@@ -13,16 +13,16 @@ module SaveFetchedMovie
 
     private
 
-    attr_reader :inputs, :movie
+    attr_reader :inputs
 
     def save_fetched_movie
-      Movie.create(movie_attributes)
+      movie.save
     rescue StandardError
       Rails.logger.warn("#{Time.current}: #{inputs[:title]} movie not found!")
     end
 
-    def movie_attributes
-      Adapters::Movies::MovieAdapter.new(movie_data).movie_attributes
+    def movie
+      @movie = Adapters::Movies::MovieAdapter.new(movie_data).new_movie
     end
 
     def movie_data

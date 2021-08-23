@@ -17,13 +17,12 @@ module UpdateMovies
         next if movie.attributes == movie_attributes
 
         movie.update(movie_attributes)
-        movie_attributes = {}
       end
     end
 
     def movie_attributes(title)
       movie_data = OmdbApi::FetchMovieData.new(title: title).call
-      Adapters::Movies::MovieAdapter.new(movie_data).movie_attributes
+      Adapters::Movies::MovieAdapter.new(movie_data).new_movie.attributes.compact
     end
 
   end
