@@ -16,6 +16,8 @@ require 'action_view/railtie'
 require 'action_cable/engine'
 require 'sprockets/railtie'
 # require "rails/test_unit/railtie"
+require_relative '../lib/authentication/token_strategy'
+require_relative '../lib/authentication/set_response_token'
 
 Bundler.require(*Rails.groups)
 
@@ -26,6 +28,16 @@ module Smartflix
     config.generators.system_tests = nil
     config.autoload_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('lib')
+    # config.api_only = true
+    # config.autoload_paths += %W( #{config.root}/lib )
+    config.middleware.use Warden::Manager do |manager|
+      manager.default_strategies :token
+      manager.failure_app = proc { |_env|
+        ['401', { 'Content-Type' => 'application/json' }, { error: 'Unauthorized', code: 401 }]
+      }
+    end
+
+    config.middleware.use Authentication::SetResponseToken
 
   end
 end
