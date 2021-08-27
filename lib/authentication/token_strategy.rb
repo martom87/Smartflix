@@ -23,7 +23,7 @@ module Authentication
     private
 
     def access_token
-      @access_token ||= request.get_header('access_token')
+      @access_token ||= request.get_header('HTTP_ACCESS_TOKEN')
     end
 
   end

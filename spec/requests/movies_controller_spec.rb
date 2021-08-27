@@ -15,7 +15,7 @@ RSpec.describe 'Movies Controller', type: :request do
     end
 
     it 'is accessible' do
-      get '/movies/123', headers: { access_token: User.first.token }
+      get '/movies/123', headers: { HTTP_ACCESS_TOKEN: User.first.token }
       expect(response.status).to eq 200
     end
   end
