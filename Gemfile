@@ -18,6 +18,7 @@ gem 'sass-rails', '>= 6'
 gem 'sidekiq', '~>6.0.0'
 gem 'sidekiq-scheduler'
 gem 'turbolinks', '~> 5'
+gem 'warden'
 gem 'webpacker', '~> 5.0'
 
 group :development, :test do

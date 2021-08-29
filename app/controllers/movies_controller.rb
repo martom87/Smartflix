@@ -2,6 +2,8 @@
 
 class MoviesController < ApplicationController
 
+  prepend_before_action :authenticate!
+
   def show
     movie = Movie.find_by(title: params[:title])
 
