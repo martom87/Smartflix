@@ -18,5 +18,10 @@ RSpec.describe 'Movies Controller', type: :request do
       get '/movies/123', headers: { HTTP_ACCESS_TOKEN: User.first.token }
       expect(response.status).to eq 200
     end
+
+    it 'when correct access token is given but nonexistent title is provided' do
+      get '/movies/non-existen-movie', headers: { HTTP_ACCESS_TOKEN: User.first.token }
+      expect(response.status).to eq 404
+    end
   end
 end

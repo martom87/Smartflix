@@ -1,15 +1,33 @@
 # frozen_string_literal: true
 
 module SaveFetchedMovie
-  class Action
+  class Action < ::Base::Subject
 
     def initialize(inputs:)
       @inputs = inputs
+      @observers = []
+      @message = ''
     end
 
     def call
       save_fetched_movie
+      notify
+      @observers.each { |o| detach(o) }
     end
+
+    def attach(observer)
+      @observers << observer
+    end
+
+    def detach(observer)
+      @observers.delete(observer)
+    end
+
+    def notify
+      @observers.each { |observer| observer.update(self) }
+    end
+
+    attr_reader :message
 
     private
 
@@ -18,7 +36,8 @@ module SaveFetchedMovie
     def save_fetched_movie
       movie.save
     rescue StandardError
-      Rails.logger.warn("#{Time.current}: #{inputs[:title]} movie not found!")
+      @message = "#{Time.current}: #{inputs[:title]} movie not found!"
+      Rails.logger.warn(message)
     end
 
     def movie
