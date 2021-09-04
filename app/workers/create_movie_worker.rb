@@ -7,7 +7,7 @@ class CreateMovieWorker
 
   def perform(title)
     movie_create_observer = ::Movies::CreateMovieObserver.new
-    SaveFetchedMovie::EntryPoint.call(params: { title: title }, observers: { observer: movie_create_observer })
+    SaveFetchedMovie::EntryPoint.call(params: { title: title }, observers: [movie_create_observer])
   end
 
 end

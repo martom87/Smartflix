@@ -13,7 +13,7 @@ class MoviesController < ApplicationController
     else
       CreateMovieWorker.perform_async(params[:title])
       # render json: { message: "The film #{params[:title]} will be downloaded" }, status: :not_found
-      render json: { message: Rails.cache.read('create_message') }, status: :not_found
+      render json: { message: $redis.get(:create_movie_worker_response) }, status: :not_found
     end
   end
 

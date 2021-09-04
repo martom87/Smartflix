@@ -28,6 +28,7 @@ module Smartflix
     config.generators.system_tests = nil
     config.autoload_paths << Rails.root.join('lib')
     config.eager_load_paths << Rails.root.join('lib')
+    config.cache_store = :redis_store, 'redis://localhost:6379/0/cache', { expires_in: 90.minutes }
     # config.api_only = true
     # config.autoload_paths += %W( #{config.root}/lib )
     config.middleware.use Warden::Manager do |manager|
