@@ -1,30 +1,18 @@
 # frozen_string_literal: true
 
 module SaveFetchedMovie
-  class Action < ::Base::Subject
+  class Action
+
+    include ::Base::Subject
 
     def initialize(inputs:)
       @inputs = inputs
-      @observers = []
-      @message = ''
+      super
     end
 
     def call
       save_fetched_movie
       notify
-      @observers.each { |o| detach(o) }
-    end
-
-    def attach(observer)
-      @observers << observer
-    end
-
-    def detach(observer)
-      @observers.delete(observer)
-    end
-
-    def notify
-      @observers.each { |observer| observer.update(self) }
     end
 
     attr_reader :message
@@ -46,6 +34,10 @@ module SaveFetchedMovie
 
     def movie_data
       OmdbApi::FetchMovieData.new(title: inputs[:title]).call
+    end
+
+    def notify
+      @observers.each { |observer| observer.update(self) }
     end
 
   end
