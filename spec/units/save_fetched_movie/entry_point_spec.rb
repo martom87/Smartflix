@@ -3,9 +3,10 @@
 require 'rails_helper'
 
 describe SaveFetchedMovie::EntryPoint do
-  subject { described_class.call(params: params) }
+  subject { described_class.call(params: params, observers: observers) }
 
   let(:params) { { title: 'Star Wars' } }
+  let(:observers) { [::Movies::CreateMovieObserver.new] }
 
   context 'when title is string' do
     it 'gets response' do

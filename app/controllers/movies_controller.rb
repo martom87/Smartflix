@@ -12,7 +12,8 @@ class MoviesController < ApplicationController
       render json: movie, status: :ok
     else
       CreateMovieWorker.perform_async(params[:title])
-      render json: { message: "The film #{params[:title]} will be downloaded" }, status: :not_found
+      # render json: { message: "The film #{params[:title]} will be downloaded" }, status: :not_found
+      render json: { message: $redis.get(:create_movie_worker_response) }, status: :not_found
     end
   end
 

@@ -6,7 +6,8 @@ class CreateMovieWorker
   sidekiq_options retry: false, queue: :movies
 
   def perform(title)
-    SaveFetchedMovie::EntryPoint.call(params: { title: title })
+    movie_create_observer = ::Movies::CreateMovieObserver.new
+    SaveFetchedMovie::EntryPoint.call(params: { title: title }, observers: [movie_create_observer])
   end
 
 end

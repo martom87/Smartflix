@@ -3,13 +3,19 @@
 module SaveFetchedMovie
   class Action
 
+    include ::Base::Subject
+
     def initialize(inputs:)
       @inputs = inputs
+      super
     end
 
     def call
       save_fetched_movie
+      notify
     end
+
+    attr_reader :message
 
     private
 
@@ -18,7 +24,8 @@ module SaveFetchedMovie
     def save_fetched_movie
       movie.save
     rescue StandardError
-      Rails.logger.warn("#{Time.current}: #{inputs[:title]} movie not found!")
+      @message = "#{Time.current}: #{inputs[:title]} movie not found!"
+      Rails.logger.warn(message)
     end
 
     def movie
@@ -27,6 +34,10 @@ module SaveFetchedMovie
 
     def movie_data
       OmdbApi::FetchMovieData.new(title: inputs[:title]).call
+    end
+
+    def notify
+      @observers.each { |observer| observer.update(self) }
     end
 
   end
